@@ -1,4 +1,4 @@
-import { TUser } from '../types'
+import { TUser } from '../../common/types'
 import { api } from './api'
 
 export const userApi = api.injectEndpoints({

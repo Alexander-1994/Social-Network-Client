@@ -1,4 +1,4 @@
-import { TLike } from '../types'
+import { TLike } from '../../common/types'
 import { api } from './api'
 
 export const likeApi = api.injectEndpoints({

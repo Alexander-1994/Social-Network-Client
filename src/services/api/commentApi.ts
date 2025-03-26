@@ -1,4 +1,4 @@
-import { TComment } from '../types'
+import { TComment } from '../../common/types'
 import { api } from './api'
 
 export const commentApi = api.injectEndpoints({

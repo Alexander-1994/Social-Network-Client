@@ -1,6 +1,6 @@
 import { fetchBaseQuery, createApi, retry } from '@reduxjs/toolkit/query/react'
 
-import { BASE_URL } from '../../constants'
+import { BASE_URL } from '../../common/constants'
 import { TRootState } from '../store'
 
 const baseQuery = fetchBaseQuery({

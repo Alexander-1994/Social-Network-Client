@@ -1,4 +1,4 @@
-import { TPost } from '../types'
+import { TPost } from '../../common/types'
 import { api } from './api'
 
 export const postApi = api.injectEndpoints({
