@@ -1,13 +1,10 @@
 export const clientDateFormat = (date?: Date) => date?.toLocaleDateString() ?? ''
 
-export const hasErrorField = (err: unknown) => {
-  return (
-    typeof err === 'object' &&
-    err !== null &&
-    'data' in err &&
-    typeof (err as any).data === 'object' &&
-    (err as any).data !== null &&
-    'error' in (err as any).data &&
-    typeof (err as any).data.error === 'string'
-  )
-}
+export const hasErrorField = (error: unknown): error is { data: { error: string } } =>
+  typeof error === 'object' &&
+  error !== null &&
+  'data' in error &&
+  typeof (error as any).data === 'object' &&
+  (error as any).data !== null &&
+  'error' in (error as any).data &&
+  typeof (error as any).data.error === 'string'

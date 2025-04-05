@@ -16,3 +16,20 @@ export const ROUTE = {
     },
   },
 } as const
+
+export const AUTH_VARIANT = {
+  LOGIN: 'login',
+  REGISTRATION: 'registration',
+} as const
+
+export const AUTH_FORM_FIELD = {
+  NAME: 'name',
+  EMAIL: 'email',
+  PASSWORD: 'password',
+} as const
+
+export const INPUT_TYPE = {
+  TEXT: 'text',
+  EMAIL: 'email',
+  PASSWORD: 'password',
+} as const
