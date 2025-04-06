@@ -17,7 +17,7 @@ export const NavButton: FC<TProps> = ({ icon, to, text }) => {
       size="lg"
       startContent={icon}
       variant="light"
-      onClick={() => navigate(to)}
+      onPress={() => navigate(to)}
     >
       {text}
     </Button>
