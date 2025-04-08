@@ -10,6 +10,7 @@ import { ThemeProvider } from '../services/context'
 import { store } from '../services/store'
 import { Auth, Posts, CurrentPost, Following, Followers, UserProfile } from '../pages'
 import { Layout } from './Layout'
+import { AuthGuard } from './AuthGuard'
 
 const router = createBrowserRouter([
   { path: ROUTE.AUTH, element: <Auth /> },
@@ -45,7 +46,9 @@ export const App = () => {
       <HeroUIProvider>
         <ThemeProvider value={{ theme, toggleTheme }}>
           <main className={classNames(theme, 'text-foreground', 'bg-background')}>
-            <RouterProvider router={router} />
+            <AuthGuard>
+              <RouterProvider router={router} />
+            </AuthGuard>
           </main>
         </ThemeProvider>
       </HeroUIProvider>

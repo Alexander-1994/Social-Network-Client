@@ -1,5 +1,8 @@
 export const LOCALE = {
-  HEADER: 'Социальная сеть',
+  HEADER: {
+    TITLE: 'Социальная сеть',
+    GO_OUT: 'Выйти',
+  },
   AUTH: {
     TAB: {
       LOGIN: 'Вход',

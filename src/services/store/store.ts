@@ -3,10 +3,10 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import { api } from '../api'
 import { listenerMiddleware } from '../middleware'
-import user from './userSlice'
+import { userReducer } from './userSlice'
 
 export const store = configureStore({
-  reducer: { [api.reducerPath]: api.reducer, user },
+  reducer: { [api.reducerPath]: api.reducer, user: userReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(api.middleware).prepend(listenerMiddleware.middleware),
 })

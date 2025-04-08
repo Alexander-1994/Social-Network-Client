@@ -4,6 +4,7 @@ import { castDraft } from 'immer'
 import type { TUser } from '../../common/types'
 
 import { userApi } from '../api'
+import type { TRootState } from './store'
 
 type TUserState = {
   user: TUser | null
@@ -36,6 +37,7 @@ const slice = createSlice({
         state.isAuthenticated = true
       })
       .addMatcher(userApi.endpoints.current.matchFulfilled, (state, action) => {
+        state.isAuthenticated = true
         state.current = castDraft(action.payload)
       })
       .addMatcher(userApi.endpoints.getUser.matchFulfilled, (state, action) => {
@@ -44,5 +46,12 @@ const slice = createSlice({
   },
 })
 
-export const { logout, resetUser } = slice.actions
-export default slice.reducer
+export const {
+  reducer: userReducer,
+  actions: { logout, resetUser },
+} = slice
+
+export const isAuthenticatedSelector = (state: TRootState) => state.user.isAuthenticated
+export const currentSelector = (state: TRootState) => state.user.current
+export const usersSelector = (state: TRootState) => state.user.users
+export const userSelector = (state: TRootState) => state.user.user
