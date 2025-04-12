@@ -1,5 +1,16 @@
 import type { FC } from 'react'
 
+import { useGetAllPostsQuery } from '../../services/api'
+import { CreatePost } from '../../components'
+
 export const Posts: FC = () => {
-  return <div>Posts</div>
+  const { data } = useGetAllPostsQuery()
+
+  return (
+    <>
+      <div className="mb-10 w-full">
+        <CreatePost />
+      </div>
+    </>
+  )
 }

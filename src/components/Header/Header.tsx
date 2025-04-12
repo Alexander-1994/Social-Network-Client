@@ -26,7 +26,7 @@ export const Header: FC = () => {
   return (
     <Navbar>
       <NavbarBrand>
-        <p className="font-bold text-inherit">{LOCALE.HEADER.TITLE}</p>
+        <p className="font-bold text-inherit">{LOCALE.LAYOUT.HEADER.TITLE}</p>
       </NavbarBrand>
       <NavbarContent justify="end">
         <NavbarItem className="lg:flex text-3xl cursor-pointer" onClick={toggleTheme}>
@@ -35,7 +35,7 @@ export const Header: FC = () => {
         <NavbarItem>
           <Button className="gap-2" color="default" variant="flat" onPress={handleLogout}>
             <CiLogout />
-            <span>{LOCALE.HEADER.GO_OUT}</span>
+            <span>{LOCALE.LAYOUT.HEADER.GO_OUT}</span>
           </Button>
         </NavbarItem>
       </NavbarContent>

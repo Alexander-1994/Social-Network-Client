@@ -25,27 +25,26 @@ export const AuthForm: FC<TProps> = ({
   linkText,
   buttonText,
 }) => {
-  const { control, handleSubmit } = useForm<TAuthForm>({
+  const { control, handleSubmit: formSubmitHandler } = useForm<TAuthForm>({
     mode: 'onChange',
     defaultValues: { name: '', email: '', password: '' },
   })
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col gap-4" onSubmit={formSubmitHandler(onSubmit)}>
       {fields.map(({ type, name, label, placeholder }) => (
         <Controller
           key={name}
           control={control}
           name={name}
-          render={({ field: { value, onChange }, fieldState: { error } }) => (
+          render={({ field, fieldState: { error } }) => (
             <Input
               type={type}
-              value={value}
               label={label}
               placeholder={placeholder}
               required
               errorMessage={error?.message}
-              onChange={onChange}
+              {...field}
             />
           )}
         />

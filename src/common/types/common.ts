@@ -13,3 +13,5 @@ export type TAuthForm = {
 export type TAuthField = Pick<InputProps, 'label' | 'placeholder' | 'type'> & {
   name: (typeof AUTH_FORM_FIELD)[keyof typeof AUTH_FORM_FIELD]
 }
+
+export type TCreatePostForm = { content: string }

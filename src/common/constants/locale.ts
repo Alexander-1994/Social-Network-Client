@@ -1,8 +1,4 @@
 export const LOCALE = {
-  HEADER: {
-    TITLE: 'Социальная сеть',
-    GO_OUT: 'Выйти',
-  },
   AUTH: {
     TAB: {
       LOGIN: 'Вход',
@@ -22,9 +18,19 @@ export const LOCALE = {
       REGISTER: 'Зарегистрироваться',
     },
   },
-  NAV: {
-    POSTS: 'Посты',
-    FOLLOWING: 'Подписки',
-    FOLLOWERS: 'Подписчики',
+  LAYOUT: {
+    HEADER: {
+      TITLE: 'Социальная сеть',
+      GO_OUT: 'Выйти',
+    },
+    NAV: {
+      POSTS: 'Посты',
+      FOLLOWING: 'Подписки',
+      FOLLOWERS: 'Подписчики',
+    },
+    POSTS: {
+      ADD_POST: 'Добавить пост',
+      PLACEHOLDER: 'Расскажите, какие у вас мысли',
+    },
   },
 } as const

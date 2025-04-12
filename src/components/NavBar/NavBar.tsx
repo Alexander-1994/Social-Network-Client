@@ -7,9 +7,9 @@ import { LOCALE, ROUTE } from '../../common/constants'
 import { type TNavButton, NavButton } from '../NavButton'
 
 const LINKS: TNavButton[] = [
-  { text: LOCALE.NAV.POSTS, icon: <BsPostcard />, to: ROUTE.LAYOUT.OUTLET.POSTS },
-  { text: LOCALE.NAV.FOLLOWING, icon: <FiUsers />, to: ROUTE.LAYOUT.OUTLET.FOLLOWING },
-  { text: LOCALE.NAV.FOLLOWERS, icon: <FaUsers />, to: ROUTE.LAYOUT.OUTLET.FOLLOWERS },
+  { text: LOCALE.LAYOUT.NAV.POSTS, icon: <BsPostcard />, to: ROUTE.LAYOUT.OUTLET.POSTS },
+  { text: LOCALE.LAYOUT.NAV.FOLLOWING, icon: <FiUsers />, to: ROUTE.LAYOUT.OUTLET.FOLLOWING },
+  { text: LOCALE.LAYOUT.NAV.FOLLOWERS, icon: <FaUsers />, to: ROUTE.LAYOUT.OUTLET.FOLLOWERS },
 ]
 
 export const NavBar: FC = () => (
