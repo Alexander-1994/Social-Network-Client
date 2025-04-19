@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react'
+import { type FC, useState, useCallback } from 'react'
 import { useNavigate, Link, generatePath } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Card as NextUiCard, CardHeader, User, Spinner, CardBody, CardFooter } from '@heroui/react'
@@ -18,9 +18,11 @@ import {
   useDeleteCommentMutation,
 } from '../../services/api'
 import { currentSelector } from '../../services/store'
-import { clientDateFormat } from '../../services/utils'
+import { clientDateFormat, hasErrorField } from '../../services/utils'
 
 type TProps = {
+  cardFor: ECardType
+  id: string
   avatarUrl: string
   name: string
   authorId: string
@@ -29,8 +31,6 @@ type TProps = {
   likesCount?: number
   commentsCount?: number
   createdAt?: Date
-  id?: string
-  cardFor?: ECardType
   likedByUser?: boolean
 }
 
@@ -52,10 +52,38 @@ export const Card: FC<TProps> = ({
   const currentUser = useSelector(currentSelector)
   const [likePost] = useLikePostMutation()
   const [unlikePost] = useUnlikePostMutation()
-  const [triggerAllPosts] = useLazyGetAllPostsQuery()
-  const [triggerPost] = useLazyGetPostQuery()
+  const [triggerGetAllPosts] = useLazyGetAllPostsQuery()
+  const [triggerGetPost] = useLazyGetPostQuery()
   const [deletePost, deletePostStatus] = useDeletePostMutation()
   const [deleteComment, deleteCommentStatus] = useDeleteCommentMutation()
+
+  const handleDelete = useCallback(async () => {
+    try {
+      switch (cardFor) {
+        case ECardType.post:
+          await deletePost(id).unwrap()
+          await triggerGetAllPosts().unwrap()
+          break
+        case ECardType.currentPost:
+          await deletePost(id).unwrap()
+          navigate(ROUTE.LAYOUT.OUTLET.POSTS)
+          await triggerGetAllPosts().unwrap()
+          break
+        case ECardType.comment:
+          await deleteComment(id).unwrap()
+          await triggerGetPost(id).unwrap()
+          break
+        default:
+          throw new Error('Неверный параметр <cardFor>')
+      }
+    } catch (error) {
+      if (hasErrorField(error)) {
+        setErrorMessage(error.data.error)
+      } else {
+        setErrorMessage(error as string)
+      }
+    }
+  }, [cardFor, id])
 
   return (
     <NextUiCard className="mb-5">
@@ -69,7 +97,7 @@ export const Card: FC<TProps> = ({
           />
         </Link>
         {authorId === currentUser?.id && (
-          <div className="cursor-pointer">
+          <div className="cursor-pointer" onClick={handleDelete}>
             {deletePostStatus.isLoading || deleteCommentStatus.isLoading ? <Spinner /> : <RiDeleteBinLine />}
           </div>
         )}
