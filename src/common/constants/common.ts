@@ -33,3 +33,9 @@ export const INPUT_TYPE = {
   EMAIL: 'email',
   PASSWORD: 'password',
 } as const
+
+export enum ECardType {
+  post = 'post',
+  currentPost = 'current-post',
+  comment = 'comment',
+}

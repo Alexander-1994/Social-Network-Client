@@ -1,4 +1,5 @@
-export { App } from './App'
+export { Layout } from './Layout'
 export { Login } from './Login'
 export { Registration } from './Registration'
 export { CreatePost } from './CreatePost'
+export { Card } from './Card'
