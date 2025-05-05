@@ -1,4 +1,4 @@
-import { type FC, useContext, useCallback } from 'react'
+import { type FC, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button } from '@heroui/react'
 import { FaRegMoon } from 'react-icons/fa'
@@ -17,16 +17,16 @@ export const Header: FC = () => {
 
   const IconComponent = theme === THEME.DARK ? LuSunMedium : FaRegMoon
 
-  const handleLogout = useCallback(() => {
+  const handleLogout = () => {
     dispatch(logout())
     localStorage.removeItem('token')
     navigate(ROUTE.AUTH)
-  }, [])
+  }
 
   return (
     <Navbar>
       <NavbarBrand>
-        <p className="font-bold text-inherit">{LOCALE.LAYOUT.HEADER.TITLE}</p>
+        <p className="font-bold text-inherit">{LOCALE.SOCIAL_NETWORK}</p>
       </NavbarBrand>
       <NavbarContent justify="end">
         <NavbarItem className="lg:flex text-3xl cursor-pointer" onClick={toggleTheme}>
@@ -35,7 +35,7 @@ export const Header: FC = () => {
         <NavbarItem>
           <Button className="gap-2" color="default" variant="flat" onPress={handleLogout}>
             <CiLogout />
-            <span>{LOCALE.LAYOUT.HEADER.GO_OUT}</span>
+            <span>{LOCALE.GO_OUT}</span>
           </Button>
         </NavbarItem>
       </NavbarContent>

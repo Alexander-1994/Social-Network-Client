@@ -1,4 +1,4 @@
-import { type FC, useState, useCallback } from 'react'
+import { type FC, useState } from 'react'
 import { type SubmitHandler } from 'react-hook-form'
 
 import { AUTH_FORM_FIELD, LOCALE, INPUT_TYPE } from '../../common/constants'
@@ -10,19 +10,19 @@ import { hasErrorField } from '../../services/utils'
 const FIELDS: TAuthField[] = [
   {
     name: AUTH_FORM_FIELD.NAME,
-    label: LOCALE.AUTH.LABEL.NAME,
+    label: LOCALE.NAME,
     placeholder: '',
     type: INPUT_TYPE.TEXT,
   },
   {
     name: AUTH_FORM_FIELD.EMAIL,
-    label: LOCALE.AUTH.LABEL.EMAIL,
+    label: LOCALE.EMAIL,
     placeholder: '',
     type: INPUT_TYPE.EMAIL,
   },
   {
     name: AUTH_FORM_FIELD.PASSWORD,
-    label: LOCALE.AUTH.LABEL.PASSWORD,
+    label: LOCALE.PASSWORD,
     placeholder: '',
     type: INPUT_TYPE.PASSWORD,
   },
@@ -36,7 +36,7 @@ export const Registration: FC<TProps> = ({ onSwitch }) => {
   const [register, { isLoading }] = useRegisterMutation()
   const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSubmit = useCallback<SubmitHandler<TAuthForm>>(async (data) => {
+  const handleSubmit: SubmitHandler<TAuthForm> = async (data) => {
     try {
       await register(data).unwrap()
       onSwitch()
@@ -45,7 +45,7 @@ export const Registration: FC<TProps> = ({ onSwitch }) => {
         setErrorMessage(error.data.error)
       }
     }
-  }, [])
+  }
 
   return (
     <AuthForm
@@ -54,9 +54,9 @@ export const Registration: FC<TProps> = ({ onSwitch }) => {
       onSubmit={handleSubmit}
       isLoading={isLoading}
       errorMessage={errorMessage}
-      questionText={LOCALE.AUTH.QUESTION.HAS_ACCOUNT}
-      linkText={LOCALE.AUTH.LINK.LOGIN}
-      buttonText={LOCALE.AUTH.LINK.REGISTER}
+      questionText={LOCALE.HAS_ACCOUNT}
+      linkText={LOCALE.LOGIN_TO_ACCOUNT}
+      buttonText={LOCALE.REGISTER_ONESELF}
     />
   )
 }

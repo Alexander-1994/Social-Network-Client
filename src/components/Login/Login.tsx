@@ -1,4 +1,4 @@
-import { type FC, useState, useCallback } from 'react'
+import { type FC, useState } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,13 +11,13 @@ import { hasErrorField } from '../../services/utils'
 const FIELDS: TAuthField[] = [
   {
     name: AUTH_FORM_FIELD.EMAIL,
-    label: LOCALE.AUTH.LABEL.EMAIL,
+    label: LOCALE.EMAIL,
     placeholder: '',
     type: INPUT_TYPE.EMAIL,
   },
   {
     name: AUTH_FORM_FIELD.PASSWORD,
-    label: LOCALE.AUTH.LABEL.PASSWORD,
+    label: LOCALE.PASSWORD,
     placeholder: '',
     type: INPUT_TYPE.PASSWORD,
   },
@@ -33,7 +33,7 @@ export const Login: FC<TProps> = ({ onSwitch }) => {
   const [triggerCurrentQuery] = useLazyCurrentQuery()
   const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSubmit = useCallback<SubmitHandler<TAuthForm>>(async ({ email, password }) => {
+  const handleSubmit: SubmitHandler<TAuthForm> = async ({ email, password }) => {
     try {
       await login({ email, password }).unwrap()
       await triggerCurrentQuery()
@@ -43,7 +43,7 @@ export const Login: FC<TProps> = ({ onSwitch }) => {
         setErrorMessage(error.data.error)
       }
     }
-  }, [])
+  }
 
   return (
     <AuthForm
@@ -52,9 +52,9 @@ export const Login: FC<TProps> = ({ onSwitch }) => {
       onSubmit={handleSubmit}
       isLoading={isLoading}
       errorMessage={errorMessage}
-      questionText={LOCALE.AUTH.QUESTION.NO_ACCOUNT}
-      linkText={LOCALE.AUTH.LINK.REGISTER}
-      buttonText={LOCALE.AUTH.LINK.LOGIN}
+      questionText={LOCALE.NO_ACCOUNT}
+      linkText={LOCALE.REGISTER_ONESELF}
+      buttonText={LOCALE.LOGIN_TO_ACCOUNT}
     />
   )
 }

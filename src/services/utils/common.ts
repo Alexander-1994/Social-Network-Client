@@ -1,4 +1,6 @@
-export const clientDateFormat = (date?: Date) => (date ? new Date(date).toLocaleDateString() : '')
+import { format } from 'date-fns'
+
+export const clientDateFormat = (date?: Date) => (date ? format(date, 'dd.MM.yyyy, HH:mm:ss') : '')
 
 export const hasErrorField = (error: unknown): error is { data: { error: string } } =>
   typeof error === 'object' &&

@@ -1,11 +1,12 @@
-import { type FC, useState, useCallback } from 'react'
+import { type FC, type PropsWithChildren, useState } from 'react'
 import { useNavigate, Link, generatePath } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Card as NextUiCard, CardHeader, User, Spinner, CardBody, CardFooter } from '@heroui/react'
+import { Card as NextUiCard, CardHeader, Divider, User, Spinner, CardBody, CardFooter } from '@heroui/react'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { FcDislike } from 'react-icons/fc'
 import { MdOutlineFavoriteBorder } from 'react-icons/md'
 import { FaRegComment } from 'react-icons/fa'
+import classNames from 'classnames'
 
 import { ECardType, ROUTE, BASE_URL } from '../../common/constants'
 import { MetaInfo } from '../../common/components'
@@ -20,14 +21,14 @@ import {
 import { currentSelector } from '../../services/store'
 import { clientDateFormat, hasErrorField } from '../../services/utils'
 
-type TProps = {
+type TProps = PropsWithChildren & {
   cardFor: ECardType
-  id: string
   avatarUrl: string
   name: string
   authorId: string
-  content: string
+  postId: string
   commentId?: string
+  content: string
   likesCount?: number
   commentsCount?: number
   createdAt?: Date
@@ -38,14 +39,15 @@ export const Card: FC<TProps> = ({
   avatarUrl,
   name,
   authorId,
-  content,
+  postId,
   commentId,
+  content,
   likesCount,
   commentsCount,
   createdAt,
-  id,
   cardFor,
   likedByUser,
+  children,
 }) => {
   const navigate = useNavigate()
   const [errorMessage, setErrorMessage] = useState('')
@@ -57,21 +59,24 @@ export const Card: FC<TProps> = ({
   const [deletePost, deletePostStatus] = useDeletePostMutation()
   const [deleteComment, deleteCommentStatus] = useDeleteCommentMutation()
 
-  const handleDelete = useCallback(async () => {
+  const isPost = cardFor === ECardType.post
+  const isCurrentPost = cardFor === ECardType.currentPost
+  const isComment = cardFor === ECardType.comment
+
+  const handleDelete = async () => {
     try {
-      switch (cardFor) {
-        case ECardType.post:
-          await deletePost(id).unwrap()
+      switch (true) {
+        case isPost:
+          await deletePost(postId).unwrap()
           await triggerGetAllPosts().unwrap()
           break
-        case ECardType.currentPost:
-          await deletePost(id).unwrap()
-          navigate(ROUTE.LAYOUT.OUTLET.POSTS)
-          await triggerGetAllPosts().unwrap()
+        case isCurrentPost:
+          await deletePost(postId).unwrap()
+          navigate(ROUTE.LAYOUT.MAIN)
           break
-        case ECardType.comment:
-          await deleteComment(id).unwrap()
-          await triggerGetPost(id).unwrap()
+        case isComment:
+          await deleteComment(commentId ?? '').unwrap()
+          await triggerGetPost(postId).unwrap()
           break
         default:
           throw new Error('Неверный параметр <cardFor>')
@@ -83,41 +88,69 @@ export const Card: FC<TProps> = ({
         setErrorMessage(error as string)
       }
     }
-  }, [cardFor, id])
+  }
+
+  const handleLike = async () => {
+    try {
+      likedByUser ? await unlikePost(postId).unwrap() : await likePost({ postId }).unwrap()
+
+      if (isCurrentPost) {
+        await triggerGetPost(postId).unwrap()
+      }
+
+      await triggerGetAllPosts().unwrap()
+    } catch (error) {
+      if (hasErrorField(error)) {
+        setErrorMessage(error.data.error)
+      } else {
+        setErrorMessage(error as string)
+      }
+    }
+  }
 
   return (
-    <NextUiCard className="mb-5">
-      <CardHeader className="justify-between items-center bg-transparent">
-        <Link to={generatePath(ROUTE.LAYOUT.OUTLET.CURRENT_USER, { id: authorId })}>
-          <User
-            className="text-small font-semibold lending-non text-default-600"
-            name={name}
-            description={clientDateFormat(createdAt)}
-            avatarProps={{ src: `${BASE_URL}${avatarUrl}` }}
-          />
-        </Link>
-        {authorId === currentUser?.id && (
-          <div className="cursor-pointer" onClick={handleDelete}>
-            {deletePostStatus.isLoading || deleteCommentStatus.isLoading ? <Spinner /> : <RiDeleteBinLine />}
-          </div>
-        )}
-      </CardHeader>
-      <CardBody className="px-3 py-2 mb-5">
-        <p className="text-xl">{content}</p>
-      </CardBody>
-      {cardFor === ECardType.comment && (
-        <CardFooter className="gap-3">
-          <div className="flex gap-5 items-center">
-            <MetaInfo count={likesCount}>{likedByUser ? <FcDislike /> : <MdOutlineFavoriteBorder />}</MetaInfo>
-          </div>
-          <Link to={generatePath(ROUTE.LAYOUT.OUTLET.CURRENT_POST, { id: id! /* TODO */ })}>
-            <MetaInfo count={commentsCount}>
-              <FaRegComment />
-            </MetaInfo>
+    <div
+      className={classNames('flex flex-col', {
+        'mb-5': !isComment,
+      })}
+    >
+      <NextUiCard>
+        <CardHeader className="justify-between items-center bg-transparent">
+          <Link to={generatePath(ROUTE.LAYOUT.OUTLET.CURRENT_USER, { id: authorId })}>
+            <User
+              className="text-small font-semibold lending-non text-default-600"
+              name={name}
+              description={clientDateFormat(createdAt)}
+              avatarProps={{ src: `${BASE_URL}${avatarUrl}` }}
+            />
           </Link>
-          {errorMessage && <p className="text-red-500 mt-2 mb-5 text-small">{errorMessage}</p>}
-        </CardFooter>
-      )}
-    </NextUiCard>
+          {authorId === currentUser?.id && (
+            <div className="cursor-pointer" onClick={handleDelete}>
+              {deletePostStatus.isLoading || deleteCommentStatus.isLoading ? <Spinner /> : <RiDeleteBinLine />}
+            </div>
+          )}
+        </CardHeader>
+        <CardBody className="px-3 py-2">
+          <p className="text-xl">{content}</p>
+        </CardBody>
+        {!isComment && (
+          <CardFooter className="gap-3">
+            <div className="flex gap-5 items-center" onClick={handleLike}>
+              <MetaInfo count={likesCount}>{likedByUser ? <FcDislike /> : <MdOutlineFavoriteBorder />}</MetaInfo>
+            </div>
+            {!isCurrentPost && (
+              <Link to={generatePath(ROUTE.LAYOUT.OUTLET.CURRENT_POST, { id: postId! /* TODO */ })}>
+                <MetaInfo count={commentsCount}>
+                  <FaRegComment />
+                </MetaInfo>
+              </Link>
+            )}
+          </CardFooter>
+        )}
+        {!!children && <Divider />}
+        {children}
+      </NextUiCard>
+      {errorMessage && <p className="text-red-500 mt-2 mb-5 text-small">{errorMessage}</p>}
+    </div>
   )
 }

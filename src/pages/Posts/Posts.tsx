@@ -16,8 +16,8 @@ export const Posts: FC = () => {
         <Card
           key={id}
           cardFor={ECardType.post}
-          id={id}
           authorId={authorId}
+          postId={id}
           avatarUrl={author.avatarUrl ?? ''}
           name={author.name ?? ''}
           content={content}

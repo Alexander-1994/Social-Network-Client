@@ -13,7 +13,7 @@ export type TUser = {
   following: TFollows[]
   followers: TFollows[]
   likes: TLike[]
-  comments: Comment[]
+  comments: TComment[]
   isFollowing?: boolean
 }
 
@@ -31,7 +31,7 @@ export type TPost = {
   author: TUser
   authorId: string
   likes: TLike[]
-  comments: Comment[]
+  comments: TComment[]
   likedByUser: boolean
   createdAt: Date
   updatedAt: Date

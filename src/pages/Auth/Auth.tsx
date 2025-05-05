@@ -13,10 +13,10 @@ export const Auth: FC = () => {
         <Card className="max-w-full w-[340px] h-[450px]">
           <CardBody className="overflow-hidden">
             <Tabs fullWidth size="md" selectedKey={variant} onSelectionChange={(key) => setVariant(key as string)}>
-              <Tab key={AUTH_VARIANT.LOGIN} title={LOCALE.AUTH.TAB.LOGIN}>
+              <Tab key={AUTH_VARIANT.LOGIN} title={LOCALE.LOGIN}>
                 <Login onSwitch={() => setVariant(AUTH_VARIANT.REGISTRATION)} />
               </Tab>
-              <Tab key={AUTH_VARIANT.REGISTRATION} title={LOCALE.AUTH.TAB.REGISTRATION}>
+              <Tab key={AUTH_VARIANT.REGISTRATION} title={LOCALE.REGISTRATION}>
                 <Registration onSwitch={() => setVariant(AUTH_VARIANT.LOGIN)} />
               </Tab>
             </Tabs>

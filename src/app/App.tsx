@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { type FC, useState } from 'react'
 import { RouterProvider } from 'react-router-dom'
 import { Provider as RTKProvider } from 'react-redux'
 import { HeroUIProvider } from '@heroui/react'
@@ -12,11 +12,11 @@ import { store } from '../services/store'
 import { AuthGuard } from './AuthGuard'
 import { router } from './router'
 
-export const App = () => {
+export const App: FC = () => {
   const savedTheme = localStorage.getItem('theme') as TTheme | null
   const [theme, setTheme] = useState<TTheme>(savedTheme || THEME.DARK)
 
-  const toggleTheme = useCallback(() => {
+  const toggleTheme = () => {
     setTheme((prevTheme) => {
       const newTheme = prevTheme === THEME.DARK ? THEME.LIGHT : THEME.DARK
 
@@ -24,7 +24,7 @@ export const App = () => {
 
       return newTheme
     })
-  }, [])
+  }
 
   return (
     <RTKProvider store={store}>
