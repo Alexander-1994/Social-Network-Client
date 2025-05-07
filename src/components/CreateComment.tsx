@@ -2,11 +2,11 @@ import { type FC, useState } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
-import { LOCALE } from '../../common/constants'
-import type { TPostForm } from '../../common/types'
-import { PostForm } from '../../common/components'
-import { useCreateCommentMutation, useLazyGetPostQuery } from '../../services/api'
-import { hasErrorField } from '../../services/utils'
+import { LOCALE } from '../common/constants'
+import type { TPostForm } from '../common/types'
+import { PostForm } from '../common/components'
+import { useCreateCommentMutation, useLazyGetPostQuery } from '../services/api'
+import { hasErrorField } from '../services/utils'
 
 export const CreateComment: FC = () => {
   const params = useParams<{ id: string }>()

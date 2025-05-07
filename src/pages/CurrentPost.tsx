@@ -1,10 +1,10 @@
 import type { FC } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { LOCALE, ECardType } from '../../common/constants'
-import { BackButton } from '../../common/components'
-import { Card, CreateComment } from '../../components'
-import { useGetPostQuery } from '../../services/api'
+import { LOCALE, ECardType } from '../common/constants'
+import { BackButton } from '../common/components'
+import { Card, CreateComment } from '../components'
+import { useGetPostQuery } from '../services/api'
 
 export const CurrentPost: FC = () => {
   const params = useParams<{ id: string }>()

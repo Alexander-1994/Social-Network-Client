@@ -1,8 +1,8 @@
 import type { FC } from 'react'
 
-import { ECardType } from '../../common/constants'
-import { useGetAllPostsQuery } from '../../services/api'
-import { CreatePost, Card } from '../../components'
+import { ECardType } from '../common/constants'
+import { useGetAllPostsQuery } from '../services/api'
+import { CreatePost, Card } from '../components'
 
 export const Posts: FC = () => {
   const { data } = useGetAllPostsQuery()

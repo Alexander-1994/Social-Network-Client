@@ -1,1 +1,0 @@
-export { CurrentPost } from './CurrentPost'

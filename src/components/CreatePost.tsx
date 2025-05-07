@@ -1,11 +1,11 @@
 import { type FC, useState } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
 
-import { LOCALE } from '../../common/constants'
-import type { TPostForm } from '../../common/types'
-import { PostForm } from '../../common/components'
-import { useCreatePostMutation, useLazyGetAllPostsQuery } from '../../services/api'
-import { hasErrorField } from '../../services/utils'
+import { LOCALE } from '../common/constants'
+import type { TPostForm } from '../common/types'
+import { PostForm } from '../common/components'
+import { useCreatePostMutation, useLazyGetAllPostsQuery } from '../services/api'
+import { hasErrorField } from '../services/utils'
 
 export const CreatePost: FC = () => {
   const [errorMessage, setErrorMessage] = useState('')

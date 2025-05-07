@@ -3,9 +3,9 @@ import { Card, CardHeader, Image, CardBody } from '@heroui/react'
 import { Link, generatePath } from 'react-router-dom'
 import { MdAlternateEmail } from 'react-icons/md'
 
-import { BASE_URL, ROUTE } from '../../common/constants'
-import { useAppSelector } from '../../services/hooks'
-import { currentSelector } from '../../services/store'
+import { BASE_URL, ROUTE } from '../common/constants'
+import { useAppSelector } from '../services/hooks'
+import { currentSelector } from '../services/store'
 
 export const Profile: FC = () => {
   const current = useAppSelector(currentSelector)

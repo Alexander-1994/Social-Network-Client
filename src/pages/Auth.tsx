@@ -1,8 +1,8 @@
 import { type FC, useState } from 'react'
 import { Card, CardBody, Tabs, Tab } from '@heroui/react'
 
-import { AUTH_VARIANT, LOCALE } from '../../common/constants'
-import { Login, Registration } from '../../components'
+import { AUTH_VARIANT, LOCALE } from '../common/constants'
+import { Login, Registration } from '../components'
 
 export const Auth: FC = () => {
   const [variant, setVariant] = useState<string>(AUTH_VARIANT.LOGIN)

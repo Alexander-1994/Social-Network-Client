@@ -2,11 +2,11 @@ import { type FC, useState } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import { AUTH_FORM_FIELD, LOCALE, INPUT_TYPE, ROUTE } from '../../common/constants'
-import type { TAuthField, TAuthForm } from '../../common/types'
-import { AuthForm } from '../../common/components'
-import { useLoginMutation, useLazyCurrentQuery } from '../../services/api'
-import { hasErrorField } from '../../services/utils'
+import { AUTH_FORM_FIELD, LOCALE, INPUT_TYPE, ROUTE } from '../common/constants'
+import type { TAuthField, TAuthForm } from '../common/types'
+import { AuthForm } from '../common/components'
+import { useLoginMutation, useLazyCurrentQuery } from '../services/api'
+import { hasErrorField } from '../services/utils'
 
 const FIELDS: TAuthField[] = [
   {

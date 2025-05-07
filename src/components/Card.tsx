@@ -8,8 +8,8 @@ import { MdOutlineFavoriteBorder } from 'react-icons/md'
 import { FaRegComment } from 'react-icons/fa'
 import classNames from 'classnames'
 
-import { ECardType, ROUTE, BASE_URL } from '../../common/constants'
-import { MetaInfo } from '../../common/components'
+import { ECardType, ROUTE, BASE_URL } from '../common/constants'
+import { MetaInfo } from '../common/components'
 import {
   useLikePostMutation,
   useUnlikePostMutation,
@@ -17,9 +17,9 @@ import {
   useLazyGetPostQuery,
   useDeletePostMutation,
   useDeleteCommentMutation,
-} from '../../services/api'
-import { currentSelector } from '../../services/store'
-import { clientDateFormat, hasErrorField } from '../../services/utils'
+} from '../services/api'
+import { currentSelector } from '../services/store'
+import { clientDateFormatWithTime, hasErrorField } from '../services/utils'
 
 type TProps = PropsWithChildren & {
   cardFor: ECardType
@@ -120,7 +120,7 @@ export const Card: FC<TProps> = ({
             <User
               className="text-small font-semibold lending-non text-default-600"
               name={name}
-              description={clientDateFormat(createdAt)}
+              description={clientDateFormatWithTime(createdAt)}
               avatarProps={{ src: `${BASE_URL}${avatarUrl}` }}
             />
           </Link>

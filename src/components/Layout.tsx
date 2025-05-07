@@ -1,14 +1,14 @@
 import { type FC, useEffect } from 'react'
 import { useNavigate, Outlet } from 'react-router-dom'
 
-import { ROUTE } from '../../common/constants'
-import { useAppSelector } from '../../services/hooks'
-import { isAuthenticatedSelector, userSelector } from '../../services/store/'
+import { ROUTE } from '../common/constants'
+import { LayoutContainer } from '../common/components'
+import { useAppSelector } from '../services/hooks'
+import { isAuthenticatedSelector, userSelector } from '../services/store/'
 
-import { Header } from '../Header'
-import { Container } from '../Container'
-import { NavBar } from '../NavBar'
-import { Profile } from '../Profile'
+import { Header } from './Header'
+import { NavBar } from './NavBar'
+import { Profile } from './Profile'
 
 export const Layout: FC = () => {
   const navigate = useNavigate()
@@ -24,7 +24,7 @@ export const Layout: FC = () => {
   return (
     <>
       <Header />
-      <Container>
+      <LayoutContainer>
         <div className="flex-2 p-4">
           <NavBar />
         </div>
@@ -38,7 +38,7 @@ export const Layout: FC = () => {
             </div>
           </div>
         )}
-      </Container>
+      </LayoutContainer>
     </>
   )
 }

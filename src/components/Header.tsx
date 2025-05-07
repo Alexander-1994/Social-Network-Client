@@ -5,10 +5,10 @@ import { FaRegMoon } from 'react-icons/fa'
 import { LuSunMedium } from 'react-icons/lu'
 import { CiLogout } from 'react-icons/ci'
 
-import { THEME, ROUTE, LOCALE } from '../../common/constants'
-import { ThemeContext } from '../../services/context'
-import { useAppDispatch } from '../../services/hooks'
-import { logout } from '../../services/store'
+import { THEME, ROUTE, LOCALE } from '../common/constants'
+import { ThemeContext } from '../services/context'
+import { useAppDispatch } from '../services/hooks'
+import { logout } from '../services/store'
 
 export const Header: FC = () => {
   const navigate = useNavigate()
