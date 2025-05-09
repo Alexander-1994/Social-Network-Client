@@ -1,4 +1,7 @@
 import { format } from 'date-fns'
+import { generatePath } from 'react-router-dom'
+
+import { ROUTE } from '../../common/constants'
 
 export const clientDateFormat = (date?: Date) => (date ? new Date(date).toLocaleDateString() : '')
 
@@ -12,3 +15,6 @@ export const hasErrorField = (error: unknown): error is { data: { error: string 
   (error as any).data !== null &&
   'error' in (error as any).data &&
   typeof (error as any).data.error === 'string'
+
+export const generateLayoutPath = (outletPath: string, id: string) =>
+  generatePath(ROUTE.LAYOUT.MAIN + outletPath, { id })

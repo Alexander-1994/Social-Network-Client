@@ -1,13 +1,12 @@
-import { type FC, useEffect } from 'react'
+import { type FC, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { useDisclosure, Card as NextUiCard, Image, Button } from '@heroui/react'
 import { MdOutlinePersonAddAlt1, MdOutlinePersonAddDisabled } from 'react-icons/md'
 import { CiEdit } from 'react-icons/ci'
 
 import { BASE_URL, LOCALE } from '../common/constants'
-import { BackButton, InfoRow, ValueColumn } from '../common/components'
-import { useAppDispatch } from '../services/hooks'
+import { BackButton, ErrorMessage, InfoRow, ValueColumn } from '../common/components'
+import { useAppSelector, useAppDispatch } from '../services/hooks'
 import { currentSelector, resetUser } from '../services/store'
 import {
   useGetUserQuery,
@@ -16,13 +15,14 @@ import {
   useLazyGetUserQuery,
   useLazyCurrentQuery,
 } from '../services/api'
-import { clientDateFormat } from '../services/utils'
+import { clientDateFormat, hasErrorField } from '../services/utils'
 
 export const UserProfile: FC = () => {
   const params = useParams<{ id: string }>()
+  const [errorMessage, setErrorMessage] = useState('')
   const dispatch = useAppDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const currentUser = useSelector(currentSelector)
+  const currentUser = useAppSelector(currentSelector)
   const { data } = useGetUserQuery(params.id ?? '')
   const [followUser] = useFollowUserMutation()
   const [unfollowUser] = useUnfollowUserMutation()
@@ -35,6 +35,22 @@ export const UserProfile: FC = () => {
     },
     [],
   )
+
+  const handleFollow = async () => {
+    try {
+      if (params.id) {
+        data?.isFollowing
+          ? await unfollowUser(params.id).unwrap()
+          : await followUser({ followingId: params.id }).unwrap()
+        await triggerGetUserQuery(params.id)
+        await triggerCurrentQuery()
+      }
+    } catch (error) {
+      if (hasErrorField(error)) {
+        setErrorMessage(error.data.error)
+      }
+    }
+  }
 
   if (!data) {
     return null
@@ -60,6 +76,7 @@ export const UserProfile: FC = () => {
                 color={data.isFollowing ? 'default' : 'primary'}
                 variant="flat"
                 endContent={data.isFollowing ? <MdOutlinePersonAddDisabled /> : <MdOutlinePersonAddAlt1 />}
+                onPress={handleFollow}
               >
                 {data.isFollowing ? LOCALE.UNSUBSCRIBE : LOCALE.SUBSCRIBE}
               </Button>
@@ -67,6 +84,7 @@ export const UserProfile: FC = () => {
               <Button endContent={<CiEdit />}>{LOCALE.EDIT}</Button>
             )}
           </div>
+          <ErrorMessage errorMessage={errorMessage} />
         </NextUiCard>
         <NextUiCard className="flex flex-col space-y-4 p-5 flex-1">
           <InfoRow title={LOCALE.MAIL} info={data.email} />

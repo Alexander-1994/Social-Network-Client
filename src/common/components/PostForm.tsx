@@ -6,6 +6,7 @@ import { IoMdCreate } from 'react-icons/io'
 
 import { ROUTE } from '../constants'
 import type { TPostForm } from '../types'
+import { ErrorMessage } from './ErrorMessage'
 
 type TProps = {
   onSubmit: SubmitHandler<TPostForm>
@@ -45,7 +46,7 @@ export const PostForm: FC<TProps> = ({ onSubmit, placeholder, buttonText, errorM
           />
         )}
       />
-      {errorMessage && <p className="text-red-500 mt-2 mb-5 text-small">{errorMessage}</p>}
+      <ErrorMessage errorMessage={errorMessage} />
       <Button
         className="flex-end"
         type="submit"

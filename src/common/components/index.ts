@@ -1,5 +1,6 @@
 export { AuthForm } from './AuthForm'
 export { LayoutContainer } from './LayoutContainer'
+export { ErrorMessage } from './ErrorMessage'
 export { MetaInfo } from './MetaInfo'
 export { BackButton } from './BackButton'
 export { PostForm } from './PostForm'

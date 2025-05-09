@@ -1,6 +1,5 @@
 import { type FC, type PropsWithChildren, useState } from 'react'
-import { useNavigate, Link, generatePath } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useNavigate, Link } from 'react-router-dom'
 import { Card as NextUiCard, CardHeader, Divider, User, Spinner, CardBody, CardFooter } from '@heroui/react'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { FcDislike } from 'react-icons/fc'
@@ -9,7 +8,8 @@ import { FaRegComment } from 'react-icons/fa'
 import classNames from 'classnames'
 
 import { ECardType, ROUTE, BASE_URL } from '../common/constants'
-import { MetaInfo } from '../common/components'
+import { ErrorMessage, MetaInfo } from '../common/components'
+import { useAppSelector } from '../services/hooks'
 import {
   useLikePostMutation,
   useUnlikePostMutation,
@@ -19,7 +19,7 @@ import {
   useDeleteCommentMutation,
 } from '../services/api'
 import { currentSelector } from '../services/store'
-import { clientDateFormatWithTime, hasErrorField } from '../services/utils'
+import { generateLayoutPath, clientDateFormatWithTime, hasErrorField } from '../services/utils'
 
 type TProps = PropsWithChildren & {
   cardFor: ECardType
@@ -51,7 +51,7 @@ export const Card: FC<TProps> = ({
 }) => {
   const navigate = useNavigate()
   const [errorMessage, setErrorMessage] = useState('')
-  const currentUser = useSelector(currentSelector)
+  const currentUser = useAppSelector(currentSelector)
   const [likePost] = useLikePostMutation()
   const [unlikePost] = useUnlikePostMutation()
   const [triggerGetAllPosts] = useLazyGetAllPostsQuery()
@@ -116,7 +116,7 @@ export const Card: FC<TProps> = ({
     >
       <NextUiCard>
         <CardHeader className="justify-between items-center bg-transparent">
-          <Link to={generatePath(ROUTE.LAYOUT.OUTLET.CURRENT_USER, { id: authorId })}>
+          <Link to={generateLayoutPath(ROUTE.LAYOUT.OUTLET.CURRENT_USER, authorId)}>
             <User
               className="text-small font-semibold lending-non text-default-600"
               name={name}
@@ -139,7 +139,7 @@ export const Card: FC<TProps> = ({
               <MetaInfo count={likesCount}>{likedByUser ? <FcDislike /> : <MdOutlineFavoriteBorder />}</MetaInfo>
             </div>
             {!isCurrentPost && (
-              <Link to={generatePath(ROUTE.LAYOUT.OUTLET.CURRENT_POST, { id: postId! /* TODO */ })}>
+              <Link to={generateLayoutPath(ROUTE.LAYOUT.OUTLET.CURRENT_POST, postId!)}>
                 <MetaInfo count={commentsCount}>
                   <FaRegComment />
                 </MetaInfo>
@@ -150,7 +150,7 @@ export const Card: FC<TProps> = ({
         {!!children && <Divider />}
         {children}
       </NextUiCard>
-      {errorMessage && <p className="text-red-500 mt-2 mb-5 text-small">{errorMessage}</p>}
+      <ErrorMessage errorMessage={errorMessage} />
     </div>
   )
 }

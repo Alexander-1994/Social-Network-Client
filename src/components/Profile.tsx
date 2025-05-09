@@ -1,11 +1,12 @@
 import { type FC } from 'react'
 import { Card, CardHeader, Image, CardBody } from '@heroui/react'
-import { Link, generatePath } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { MdAlternateEmail } from 'react-icons/md'
 
 import { BASE_URL, ROUTE } from '../common/constants'
 import { useAppSelector } from '../services/hooks'
 import { currentSelector } from '../services/store'
+import { generateLayoutPath } from '../services/utils'
 
 export const Profile: FC = () => {
   const current = useAppSelector(currentSelector)
@@ -22,7 +23,7 @@ export const Profile: FC = () => {
         <Image className="object-cover rounded-xl" alt="Card profile" src={`${BASE_URL}${avatarUrl}`} width={370} />
       </CardHeader>
       <CardBody>
-        <Link to={generatePath(ROUTE.LAYOUT.OUTLET.CURRENT_USER, { id })}>
+        <Link to={generateLayoutPath(ROUTE.LAYOUT.OUTLET.CURRENT_USER, id)}>
           <h4 className="font-bold text-large mb-2">{name}</h4>
         </Link>
         <p className="text-default-500 flex items-center gap-2">

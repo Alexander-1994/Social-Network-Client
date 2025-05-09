@@ -3,6 +3,7 @@ import { type SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { Input, Link, Button } from '@heroui/react'
 
 import type { TAuthField, TAuthForm } from '../types'
+import { ErrorMessage } from './ErrorMessage'
 
 type TProps = {
   fields: TAuthField[]
@@ -49,7 +50,7 @@ export const AuthForm: FC<TProps> = ({
           )}
         />
       ))}
-      {errorMessage && <p className="text-red-500 mt-2 mb-5 text-small">{errorMessage}</p>}
+      <ErrorMessage errorMessage={errorMessage} />
       <p className="text-center text-small">
         {questionText}{' '}
         <Link className="cursor-pointer" size="sm" onPress={onSwitch}>
