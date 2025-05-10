@@ -1,3 +1,4 @@
+export { ErrorElement } from './ErrorElement'
 export { AuthForm } from './AuthForm'
 export { LayoutContainer } from './LayoutContainer'
 export { ErrorMessage } from './ErrorMessage'

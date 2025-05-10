@@ -4,7 +4,6 @@ export const THEME = {
 } as const
 
 export const ROUTE = {
-  AUTH: '/auth',
   LAYOUT: {
     MAIN: '/',
     OUTLET: {
@@ -15,6 +14,8 @@ export const ROUTE = {
       CURRENT_USER: 'users/:id',
     },
   },
+  AUTH: '/auth',
+  ANY: '*',
 } as const
 
 export const AUTH_VARIANT = {

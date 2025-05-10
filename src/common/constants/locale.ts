@@ -27,6 +27,9 @@ export const LOCALE = {
   SUBSCRIBE: 'Подписаться',
   UNSUBSCRIBE: 'Отписаться',
   EDIT: 'Редактировать',
+  WRITE: 'Написать',
   NO_FOLLOWERS: 'У вас нет подписчиков',
   NO_FOLLOWING: 'У вас нет подписок',
+  SOMETHING_BROKE: 'Кажется, что-то сломалось...',
+  TRY_LATER: 'Попробуйте позже или напишите о проблеме нам',
 } as const
