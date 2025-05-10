@@ -2,7 +2,6 @@ import { type FC, useEffect } from 'react'
 import { useNavigate, Outlet } from 'react-router-dom'
 
 import { ROUTE } from '../common/constants'
-import { LayoutContainer } from '../common/components'
 import { useAppSelector } from '../services/hooks'
 import { isAuthenticatedSelector, userSelector } from '../services/store/'
 
@@ -24,7 +23,7 @@ export const Layout: FC = () => {
   return (
     <>
       <Header />
-      <LayoutContainer>
+      <div className="flex max-w-screen-xl mx-auto mt-10">
         <div className="flex-2 p-4">
           <NavBar />
         </div>
@@ -38,7 +37,7 @@ export const Layout: FC = () => {
             </div>
           </div>
         )}
-      </LayoutContainer>
+      </div>
     </>
   )
 }

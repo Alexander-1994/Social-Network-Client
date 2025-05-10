@@ -1,8 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 
 import { ROUTE } from '../common/constants'
-import { ErrorElement } from '../common/components'
-import { Layout } from '../components'
+import { Layout, ErrorElement } from '../components'
 import { Auth, Posts, CurrentPost, Following, Followers, UserProfile } from '../pages'
 
 export const router = createBrowserRouter([

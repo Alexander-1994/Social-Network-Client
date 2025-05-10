@@ -1,4 +1,5 @@
 export { Layout } from './Layout'
+export { ErrorElement } from './ErrorElement'
 export { Login } from './Login'
 export { Registration } from './Registration'
 export { CreatePost } from './CreatePost'

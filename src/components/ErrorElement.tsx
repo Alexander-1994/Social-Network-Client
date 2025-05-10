@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 
-import { LOCALE } from '../constants'
+import { LOCALE } from '../common/constants'
 
 export const ErrorElement: FC = () => (
   <div className="w-screen h-screen flex flex-col justify-center items-center">
