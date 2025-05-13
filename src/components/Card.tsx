@@ -19,7 +19,7 @@ import {
   useDeleteCommentMutation,
 } from '../services/api'
 import { currentSelector } from '../services/store'
-import { generateLayoutPath, clientDateFormatWithTime, hasErrorField } from '../services/utils'
+import { generateLayoutPath, clientDateFormat, hasErrorField } from '../services/utils'
 
 type TProps = PropsWithChildren & {
   cardFor: ECardType
@@ -120,7 +120,7 @@ export const Card: FC<TProps> = ({
             <User
               className="text-small font-semibold lending-non text-default-600"
               name={name}
-              description={clientDateFormatWithTime(createdAt)}
+              description={clientDateFormat(createdAt, 'dateUiWithTime')}
               avatarProps={{ src: `${BASE_URL}${avatarUrl}` }}
             />
           </Link>

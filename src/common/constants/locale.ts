@@ -28,8 +28,11 @@ export const LOCALE = {
   UNSUBSCRIBE: 'Отписаться',
   EDIT: 'Редактировать',
   WRITE: 'Написать',
+  CLOSE: 'Закрыть',
   NO_FOLLOWERS: 'У вас нет подписчиков',
   NO_FOLLOWING: 'У вас нет подписок',
   SOMETHING_BROKE: 'Кажется, что-то сломалось...',
   TRY_LATER: 'Попробуйте позже или напишите о проблеме нам',
+  EDIT_PROFILE: 'Изменение профиля',
+  UPDATE_PROFILE: 'Обновить профиль',
 } as const

@@ -16,6 +16,7 @@ import {
   useLazyCurrentQuery,
 } from '../services/api'
 import { clientDateFormat, hasErrorField } from '../services/utils'
+import { EditProfile } from '../components'
 
 export const UserProfile: FC = () => {
   const params = useParams<{ id: string }>()
@@ -52,6 +53,18 @@ export const UserProfile: FC = () => {
     }
   }
 
+  const handleModalClose = async () => {
+    try {
+      if (params.id) {
+        await triggerGetUserQuery(params.id)
+        await triggerCurrentQuery()
+        onClose()
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   if (!data) {
     return null
   }
@@ -81,7 +94,9 @@ export const UserProfile: FC = () => {
                 {data.isFollowing ? LOCALE.UNSUBSCRIBE : LOCALE.SUBSCRIBE}
               </Button>
             ) : (
-              <Button endContent={<CiEdit />}>{LOCALE.EDIT}</Button>
+              <Button endContent={<CiEdit />} onPress={onOpen}>
+                {LOCALE.EDIT}
+              </Button>
             )}
           </div>
           <ErrorMessage errorMessage={errorMessage} />
@@ -97,6 +112,7 @@ export const UserProfile: FC = () => {
           </div>
         </NextUiCard>
       </div>
+      <EditProfile isOpen={isOpen} user={data} onClose={handleModalClose} />
     </>
   )
 }

@@ -33,6 +33,8 @@ export const INPUT_TYPE = {
   TEXT: 'text',
   EMAIL: 'email',
   PASSWORD: 'password',
+  DATE: 'date',
+  FILE: 'file',
 } as const
 
 export enum ECardType {
@@ -40,3 +42,13 @@ export enum ECardType {
   currentPost = 'current-post',
   comment = 'comment',
 }
+
+export const EDIT_PROFILE_FIELD = {
+  EMAIL: 'email',
+  NAME: 'name',
+  DATE_OF_BIRTH: 'dateOfBirth',
+  BIO: 'bio',
+  LOCATION: 'location',
+} as const
+
+export const EDIT_PROFILE_FORM_ID = 'edit-profile-form'

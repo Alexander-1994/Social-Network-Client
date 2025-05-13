@@ -3,9 +3,22 @@ import { generatePath } from 'react-router-dom'
 
 import { ROUTE } from '../../common/constants'
 
-export const clientDateFormat = (date?: Date) => (date ? new Date(date).toLocaleDateString() : '')
+export const clientDateFormat = (date?: Date, type: 'dateUi' | 'dateUiWithTime' | 'dateInput' = 'dateUi') => {
+  if (!date) {
+    return ''
+  }
 
-export const clientDateFormatWithTime = (date?: Date) => (date ? format(date, 'dd.MM.yyyy, HH:mm:ss') : '')
+  switch (type) {
+    case 'dateUi':
+      return new Date(date).toLocaleDateString()
+    case 'dateUiWithTime':
+      return format(date, 'dd.MM.yyyy, HH:mm:ss')
+    case 'dateInput':
+      return format(date, 'yyyy-MM-dd')
+    default:
+      return ''
+  }
+}
 
 export const hasErrorField = (error: unknown): error is { data: { error: string } } =>
   typeof error === 'object' &&
