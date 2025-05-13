@@ -20,7 +20,7 @@ export const Profile: FC = () => {
   return (
     <Card className="py-4 w-[302px]">
       <CardHeader className="pb-0 pt-2 px-4 flex-col items-center">
-        <Image className="object-cover rounded-xl" alt="Card profile" src={`${BASE_URL}${avatarUrl}`} width={370} />
+        <Image className="object-cover rounded-xl" width={370} src={`${BASE_URL}${avatarUrl}`} alt="Card profile" />
       </CardHeader>
       <CardBody>
         <Link to={generateLayoutPath(ROUTE.LAYOUT.OUTLET.CURRENT_USER, id)}>

@@ -10,7 +10,7 @@ import { ErrorMessage } from './ErrorMessage'
 
 type TProps = {
   onSubmit: SubmitHandler<TPostForm>
-  placeholder: string
+  placeholder?: string
   buttonText: string
   errorMessage?: string
 }

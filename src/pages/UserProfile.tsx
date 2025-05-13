@@ -75,11 +75,11 @@ export const UserProfile: FC = () => {
       <div className="flex items-stretch gap-4">
         <NextUiCard className="flex flex-col items-center text-center space-y-5 p-5 flex-2">
           <Image
-            className="border-4 border-white"
-            src={`${BASE_URL}${data.avatarUrl}`}
-            alt={data.name}
+            className="object-cover border-4 border-white"
             width={200}
             height={200}
+            src={`${BASE_URL}${data.avatarUrl}`}
+            alt={data.name}
           />
           <div className="flex flex-col text-2xl font-bold gap-4 item-center">
             {data.name}

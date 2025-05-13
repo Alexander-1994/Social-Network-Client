@@ -16,32 +16,28 @@ const FIELDS: TEditProfileField[] = [
   {
     name: EDIT_PROFILE_FIELD.EMAIL,
     label: LOCALE.EMAIL,
-    placeholder: '',
     endContent: <MdOutlineEmail />,
     type: INPUT_TYPE.EMAIL,
   },
   {
     name: EDIT_PROFILE_FIELD.NAME,
     label: LOCALE.NAME,
-    placeholder: '',
     type: INPUT_TYPE.TEXT,
   },
   {
     name: EDIT_PROFILE_FIELD.DATE_OF_BIRTH,
     label: LOCALE.DATA_0F_BIRTH,
-    placeholder: '',
     type: INPUT_TYPE.DATE,
   },
   {
     name: EDIT_PROFILE_FIELD.BIO,
     label: LOCALE.BIO,
-    placeholder: '',
+    placeholder: LOCALE.BIO_PLACEHOLDER,
     type: INPUT_TYPE.TEXT,
   },
   {
     name: EDIT_PROFILE_FIELD.LOCATION,
     label: LOCALE.LOCATION,
-    placeholder: '',
     type: INPUT_TYPE.TEXT,
   },
 ]
@@ -61,11 +57,7 @@ export const EditProfile: FC<TProps> = ({ isOpen, user, onClose }) => {
 
   const { email, name, dateOfBirth, bio, location } = user ?? {}
 
-  const {
-    handleSubmit: formSubmitHandler,
-    control,
-    reset,
-  } = useForm<TEditProfileForm>({
+  const { handleSubmit: formSubmitHandler, control } = useForm<TEditProfileForm>({
     mode: 'onChange',
     reValidateMode: 'onBlur',
     defaultValues: {

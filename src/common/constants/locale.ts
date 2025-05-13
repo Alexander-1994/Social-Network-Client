@@ -16,6 +16,7 @@ export const LOCALE = {
   SOCIAL_NETWORK: 'Социальная сеть',
   POST_PLACEHOLDER: 'Расскажите, какие у вас мысли',
   COMMENT_PLACEHOLDER: 'Оставьте свой комментарий',
+  BIO_PLACEHOLDER: 'Расскажите что-нибудь о себе',
   POST_NOT_EXIST: 'Поста не существует',
   COMMENTS_TO_POST: 'Комментарии к посту:',
   LOGIN_TO_ACCOUNT: 'Войти',

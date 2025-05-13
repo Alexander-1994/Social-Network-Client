@@ -11,19 +11,16 @@ const FIELDS: TAuthField[] = [
   {
     name: AUTH_FORM_FIELD.NAME,
     label: LOCALE.NAME,
-    placeholder: '',
     type: INPUT_TYPE.TEXT,
   },
   {
     name: AUTH_FORM_FIELD.EMAIL,
     label: LOCALE.EMAIL,
-    placeholder: '',
     type: INPUT_TYPE.EMAIL,
   },
   {
     name: AUTH_FORM_FIELD.PASSWORD,
     label: LOCALE.PASSWORD,
-    placeholder: '',
     type: INPUT_TYPE.PASSWORD,
   },
 ]
