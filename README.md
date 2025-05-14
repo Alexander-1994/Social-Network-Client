@@ -8,4 +8,4 @@
 >
 > - server (backend)
 > - client (данный репозиторий)
-> - docker-compose.yml (для запуска server, client и mongodb в качестве docker-контейнеров в одной сети)
+> - docker-compose.yml (для запуска server, client и db в качестве docker-контейнеров в одной сети)
